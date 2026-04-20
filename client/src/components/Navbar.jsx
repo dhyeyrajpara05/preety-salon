@@ -262,6 +262,26 @@ const Navbar = () => {
                         display: block !important;
                     }
                 }
+
+                /* STRICTLY STATIC SITE OVERRIDES */
+                .profile-area, 
+                .cart-area, 
+                a[href*="/product"], 
+                a[href*="/cart"], 
+                a[href*="/checkout"], 
+                a[href*="/book-appointment"],
+                a[href*="/login"],
+                a[href*="/register"],
+                a[href*="/profile"],
+                .add-to-cart-btn,
+                .booking-button,
+                .checkout-button,
+                .btn-area {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                }
             `}</style>
             <header className={`header-area spa buret ${isSticky ? 'sticky' : ''} ${isVisible ? 'nav-visible' : 'nav-hidden'}`} style={{
                 backgroundColor: isSticky ? 'rgba(8, 9, 11, 0.98)' : 'transparent',
@@ -320,58 +340,7 @@ const Navbar = () => {
                                 </li>
                             </ul>
                         </li>
-                        <li className={location.pathname === '/product' || location.pathname.startsWith('/product-details') ? "active" : ""} style={{ position: 'static' }}>
-                            <Link to="/product">PRODUCTS</Link>
-                            <div className="mega-menu">
-                                {Array.from(new Set(categories.map(c => c.company || 'Generic'))).sort().map(company => (
-                                    <div key={company} className="mega-column">
-                                        <Link to={`/product?company=${company}`} className="mega-column-title" style={{ 
-                                            fontFamily: '"Playfair Display", serif',
-                                            fontSize: '16px',
-                                            color: 'var(--primary-color)',
-                                            textTransform: 'uppercase',
-                                            letterSpacing: '2px',
-                                            marginBottom: '20px',
-                                            display: 'block',
-                                            textDecoration: 'none',
-                                            borderBottom: '1px solid rgba(229, 227, 66, 0.1)',
-                                            paddingBottom: '10px'
-                                        }}>
-                                            {company}
-                                        </Link>
-                                        {categories
-                                            .filter(c => (c.company || 'Generic') === company)
-                                            .map(cat => (
-                                                <div key={cat.catid} className="mega-category">
-                                                    <Link to={`/product?category=${cat.catname}`} style={{ 
-                                                        fontSize: '12px', 
-                                                        fontWeight: '700', 
-                                                        color: '#fff', 
-                                                        marginBottom: '8px', 
-                                                        display: 'block', 
-                                                        letterSpacing: '1px',
-                                                        textDecoration: 'none',
-                                                        textTransform: 'uppercase'
-                                                    }}>
-                                                        {cat.catname}
-                                                    </Link>
-                                                    {cat.subcategories && cat.subcategories.length > 0 && (
-                                                        <ul className="mega-subcategory-list">
-                                                            {cat.subcategories.map((sub, i) => (
-                                                                <li key={i}>
-                                                                    <Link to={`/product?category=${cat.catname}&subcategory=${sub}`}>
-                                                                        {sub}
-                                                                    </Link>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    )}
-                                                </div>
-                                            ))}
-                                    </div>
-                                ))}
-                            </div>
-                        </li>
+
                         <li className={location.pathname === '/packages' ? "active" : ""}>
                             <Link to="/packages">PACKAGES</Link>
                         </li>
