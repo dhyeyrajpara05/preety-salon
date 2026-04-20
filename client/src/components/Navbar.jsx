@@ -206,6 +206,62 @@ const Navbar = () => {
                     }
                     .mega-column { margin-bottom: 30px; }
                 }
+                
+                /* Mobile Responsiveness Overrides */
+                @media (max-width: 1199px) {
+                    .mobile-menu-btn {
+                        display: flex !important;
+                        visibility: visible !important;
+                    }
+                    .main-menu {
+                        position: fixed !important;
+                        top: 0 !important;
+                        left: -300px !important;
+                        width: 280px !important;
+                        height: 100vh !important;
+                        background: #08090b !important;
+                        z-index: 100000 !important;
+                        transition: left 0.3s ease !important;
+                        overflow-y: auto !important;
+                        padding: 20px !important;
+                        border-right: 1px solid rgba(255,255,255,0.1);
+                    }
+                    .main-menu.show-menu {
+                        left: 0 !important;
+                    }
+                    img {
+                        max-width: 100% !important;
+                        height: auto !important;
+                        object-fit: cover !important;
+                    }
+                    .banner-area {
+                        min-height: 100svh !important;
+                    }
+                    .nav-right {
+                        margin-left: auto; /* push to right */
+                    }
+                    .menu-list {
+                        display: block !important;
+                        margin-top: 50px !important;
+                    }
+                    .menu-list li {
+                        display: block !important;
+                        border-bottom: 1px solid rgba(255,255,255,0.05);
+                        padding: 15px 0 !important;
+                    }
+                    .menu-list li a {
+                        color: #ffffff !important;
+                        font-size: 16px !important;
+                        display: block;
+                    }
+                    .sub-menu, .mega-menu {
+                        position: static !important;
+                        display: none !important;
+                    }
+                    .menu-list li.active .sub-menu, .menu-list li:active .sub-menu {
+                        display: block !important;
+                    }
+                }
             `}</style>
             <header className={`header-area spa buret ${isSticky ? 'sticky' : ''} ${isVisible ? 'nav-visible' : 'nav-hidden'}`} style={{
                 backgroundColor: isSticky ? 'rgba(8, 9, 11, 0.98)' : 'transparent',
