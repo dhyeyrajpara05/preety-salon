@@ -1,0 +1,19 @@
+{
+  "name": "preety-salon-root",
+  "version": "1.0.0",
+  "description": "Root configuration for Preety Salon project",
+  "scripts": {
+    "start": "concurrently \"npm run start:db\" \"npm run start:client\" \"npm run start:admin\" \"npm run start:server\"",
+    "start:db": "mongod --dbpath \"d:\\PREETY SALON\\db\"",
+    "start:client": "cd client && npm run dev",
+    "start:admin": "cd admin && npm run dev",
+    "start:server": "cd backend && concurrently \"nodemon client_server.cjs\" \"nodemon admin_server.cjs\"",
+    "install:all": "npm install && cd backend && npm install && cd ../client && npm install && cd ../admin && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}
