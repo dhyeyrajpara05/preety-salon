@@ -36,7 +36,7 @@ const AuthCheck = () => {
         if (!userStr) return;
         const user = JSON.parse(userStr);
         if (user && user.email) {
-          const res = await axios.get(`http://localhost:5000/api/users/status/${user.email}`);
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/status/${user.email}`);
           if (res.data.status === 'blocked') {
             localStorage.removeItem('user');
             alert('Your account has been blocked by an administrator.');

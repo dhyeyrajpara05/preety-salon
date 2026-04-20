@@ -25,7 +25,7 @@ const Checkout = () => {
         
         const user = JSON.parse(userStr);
         try {
-            const res = await fetch(`http://localhost:5000/api/cart/${user.userid}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/${user.userid}`);
             if (res.ok) {
                 const data = await res.json();
                 setCartItems(data);
@@ -81,7 +81,7 @@ const Checkout = () => {
         // Razorpay Integration
         try {
             // 1. Create Order on Backend
-            const res = await fetch('http://localhost:5000/api/razorpay/create-order', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/razorpay/create-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount: total, currency: 'INR' })
@@ -101,7 +101,7 @@ const Checkout = () => {
                 handler: async function (response) {
                     // 3. Verify Payment Signature
                     try {
-                        const verifyRes = await fetch('http://localhost:5000/api/razorpay/verify-payment', {
+                        const verifyRes = await fetch(import.meta.env.VITE_API_URL + '/api/razorpay/verify-payment', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -161,7 +161,7 @@ const Checkout = () => {
         };
 
         try {
-            const res = await fetch('http://localhost:5000/api/orders', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)
@@ -288,7 +288,7 @@ const Checkout = () => {
                                                                 <div className="main-item" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
                                                                     <div className="item-img" style={{ width: '80px', height: '80px', flexShrink: 0 }}>
                                                                         <img 
-                                                                            src={item.product?.pimg ? `http://localhost:5000${item.product.pimg}` : "https://demo.egenslab.com/html/buret/preview/assets/image/beauty-spa/checkout/sb-product.png"} 
+                                                                            src={item.product?.pimg ? `${import.meta.env.VITE_API_URL}${item.product.pimg}` : "https://demo.egenslab.com/html/buret/preview/assets/image/beauty-spa/checkout/sb-product.png"} 
                                                                             alt={item.product?.pname} 
                                                                             style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }}
                                                                         />

@@ -21,7 +21,7 @@ const BookAppointment = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/services');
+                const res = await fetch(import.meta.env.VITE_API_URL + '/api/services');
                 if (res.ok) {
                     const data = await res.json();
                     setServices(data);
@@ -132,7 +132,7 @@ const BookAppointment = () => {
         };
 
         try {
-            const res = await fetch('http://localhost:5000/api/appointments', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/appointments', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(appointmentData)

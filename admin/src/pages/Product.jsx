@@ -25,7 +25,7 @@ const Product = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/categories')
+      const response = await fetch(import.meta.env.VITE_ADMIN_API_URL + '/api/categories')
       const data = await response.json()
       setCategories(data)
     } catch (error) {
@@ -35,7 +35,7 @@ const Product = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/products')
+      const response = await fetch(import.meta.env.VITE_ADMIN_API_URL + '/api/products')
       const data = await response.json()
       setProducts(data)
     } catch (error) {
@@ -47,7 +47,7 @@ const Product = () => {
   const handleDelete = async (pid) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        const response = await fetch(`http://localhost:5001/api/products/${pid}`, {
+        const response = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/products/${pid}`, {
           method: 'DELETE',
         })
         if (response.ok) {
@@ -97,7 +97,7 @@ const Product = () => {
       company: product.company || '',
       pimg: null
     })
-    setPreviewImg(product.pimg ? `http://localhost:5001${product.pimg}` : '')
+    setPreviewImg(product.pimg ? `${import.meta.env.VITE_ADMIN_API_URL}${product.pimg}` : '')
     setShowForm(true)
   }
 
@@ -118,8 +118,8 @@ const Product = () => {
 
     try {
       const url = editingProduct 
-        ? `http://localhost:5001/api/products/${editingProduct.pid}` 
-        : 'http://localhost:5001/api/products'
+        ? `${import.meta.env.VITE_ADMIN_API_URL}/api/products/${editingProduct.pid}` 
+        : import.meta.env.VITE_ADMIN_API_URL + '/api/products'
       const method = editingProduct ? 'PUT' : 'POST'
 
       const response = await fetch(url, {
@@ -199,7 +199,7 @@ const Product = () => {
                                     }}>
                                         <div style={{height: '200px', width: '100%', overflow: 'hidden', backgroundColor: '#f9f9f9', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                             <img 
-                                                src={product.pimg ? `http://localhost:5001${product.pimg}` : 'images/products/product-1.jpg'} 
+                                                src={product.pimg ? `${import.meta.env.VITE_ADMIN_API_URL}${product.pimg}` : 'images/products/product-1.jpg'} 
                                                 alt={product.pname} 
                                                 style={{width: '100%', height: '100%', objectFit: 'cover'}} 
                                                 onError={(e) => {e.target.src = 'https://via.placeholder.com/300x200?text=No+Image'}}

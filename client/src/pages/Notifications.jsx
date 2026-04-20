@@ -22,7 +22,7 @@ const Notifications = () => {
 
     const fetchNotifications = async (userid) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/notifications/${userid}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/notifications/${userid}`);
             if (res.ok) {
                 const data = await res.json();
                 setNotifications(data);
@@ -36,7 +36,7 @@ const Notifications = () => {
 
     const markAsRead = async (id) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/notifications/${id}/read`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/notifications/${id}/read`, {
                 method: 'PUT'
             });
             if (res.ok) {
@@ -51,7 +51,7 @@ const Notifications = () => {
         if (!user) return;
         if (!window.confirm('Mark all alerts as read?')) return;
         try {
-            const res = await fetch(`http://localhost:5000/api/notifications/read-all/${user.userid}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/notifications/read-all/${user.userid}`, {
                 method: 'PUT'
             });
             if (res.ok) {

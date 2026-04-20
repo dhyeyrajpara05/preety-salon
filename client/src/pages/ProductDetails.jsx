@@ -17,7 +17,7 @@ const ProductDetails = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/products/${id}`);
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setProduct(data);
@@ -36,7 +36,7 @@ const ProductDetails = () => {
 
     const fetchReviews = async (productId) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/product-reviews/${productId}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/product-reviews/${productId}`);
             if (res.ok) {
                 const data = await res.json();
                 setReviews(data);
@@ -54,7 +54,7 @@ const ProductDetails = () => {
         const user = JSON.parse(userStr);
         setReviewSaving(true);
         try {
-            const res = await fetch('http://localhost:5000/api/product-reviews', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/product-reviews', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -88,7 +88,7 @@ const ProductDetails = () => {
         const userid = user.userid;
 
         try {
-            const res = await fetch('http://localhost:5000/api/cart', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/cart', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -227,7 +227,7 @@ const ProductDetails = () => {
                             border: '1px solid rgba(229, 227, 66, 0.05)'
                         }}>
                              <img 
-                                src={product.pimg ? `http://localhost:5000${product.pimg}` : 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&q=80&w=1000'} 
+                                src={product.pimg ? `${import.meta.env.VITE_API_URL}${product.pimg}` : 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&q=80&w=1000'} 
                                 alt={product.pname} 
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             />

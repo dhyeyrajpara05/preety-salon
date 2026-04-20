@@ -16,7 +16,7 @@ const Cart = () => {
         
         const user = JSON.parse(userStr);
         try {
-            const res = await fetch(`http://localhost:5000/api/cart/${user.userid}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/${user.userid}`);
             if (res.ok) {
                 const data = await res.json();
                 setCartItems(data);
@@ -34,7 +34,7 @@ const Cart = () => {
 
     const handleRemoveItem = async (cartid) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/cart/${cartid}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/${cartid}`, {
                 method: 'DELETE'
             });
             if (res.ok) {
@@ -49,7 +49,7 @@ const Cart = () => {
 
     const handleUpdateQuantity = async (cartid, action) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/cart/${cartid}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/${cartid}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action })
@@ -129,7 +129,7 @@ const Cart = () => {
                                                     <td data-label="Product Info">
                                                         <div className="product-info-wrapper">
                                                             <div className="product-info-img">
-                                                                <img src={item.product?.pimg ? `http://localhost:5000${item.product.pimg}` : "https://demo.egenslab.com/html/buret/preview/assets/image/beauty-spa/cart-page/cart-image.png"} alt={item.product?.pname} />
+                                                                <img src={item.product?.pimg ? `${import.meta.env.VITE_API_URL}${item.product.pimg}` : "https://demo.egenslab.com/html/buret/preview/assets/image/beauty-spa/cart-page/cart-image.png"} alt={item.product?.pname} />
                                                             </div>
                                                             <div className="product-info-content">
                                                                 <h6>{item.product?.pname || 'Unknown Product'}</h6>

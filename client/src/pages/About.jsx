@@ -8,7 +8,7 @@ const About = () => {
     const [teamMembers, setTeamMembers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/staff')
+        axios.get(import.meta.env.VITE_API_URL + '/api/staff')
             .then(res => setTeamMembers(res.data.filter(m => m.status === 'Active')))
             .catch(err => console.error('Error fetching staff:', err));
     }, []);
@@ -234,7 +234,7 @@ const About = () => {
                                             transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                                         }} className="team-img-wrap">
                                             {member.image ? (
-                                                <img src={`http://localhost:5000/uploads/${member.image}`} alt={member.name}
+                                                <img src={`${import.meta.env.VITE_API_URL}/uploads/${member.image}`} alt={member.name}
                                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             ) : (
                                                 <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '48px', fontWeight: '700', color: 'var(--primary-color)', fontFamily: '"Playfair Display", serif' }}>

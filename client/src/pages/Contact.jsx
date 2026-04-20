@@ -19,7 +19,7 @@ const Contact = () => {
     React.useEffect(() => {
         const fetchServices = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/services');
+                const res = await fetch(import.meta.env.VITE_API_URL + '/api/services');
                 if (res.ok) {
                     const data = await res.json();
                     setServices(data);
@@ -37,7 +37,7 @@ const Contact = () => {
         e.preventDefault();
         setStatus({ loading: true, success: false, error: '' });
         try {
-            const res = await fetch('http://localhost:5000/api/inquiries', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/inquiries', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

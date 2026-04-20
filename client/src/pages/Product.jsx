@@ -37,7 +37,7 @@ const ProductCard = ({ product, index }) => {
         const userid = user.userid;
 
         try {
-            const res = await fetch('http://localhost:5000/api/cart', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/cart', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -72,7 +72,7 @@ const ProductCard = ({ product, index }) => {
         const userid = user.userid;
 
         try {
-            const res = await fetch('http://localhost:5000/api/cart', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/cart', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -142,7 +142,7 @@ const ProductCard = ({ product, index }) => {
                 >
                     {/* Background Image with slight parallax potential */}
                     <img 
-                        src={product.pimg ? `http://localhost:5000${product.pimg}` : 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&q=80&w=1000'} 
+                        src={product.pimg ? `${import.meta.env.VITE_API_URL}${product.pimg}` : 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&q=80&w=1000'} 
                         alt={product.pname} 
                         style={{ 
                             width: '100%', 
@@ -352,7 +352,7 @@ const Product = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/products');
+                const response = await fetch(import.meta.env.VITE_API_URL + '/api/products');
                 if (response.ok) {
                     const data = await response.json();
                     setProducts(data);

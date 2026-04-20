@@ -16,9 +16,9 @@ const StaffProfile = () => {
         const fetchData = async () => {
             try {
                 const [staffRes, reviewsRes, statsRes] = await Promise.all([
-                    axios.get(`http://localhost:5000/api/staff/${id}`),
-                    axios.get(`http://localhost:5000/api/feedback/by-staff/${id}`),
-                    axios.get(`http://localhost:5000/api/staff/${id}/stats`)
+                    axios.get(`${import.meta.env.VITE_API_URL}/api/staff/${id}`),
+                    axios.get(`${import.meta.env.VITE_API_URL}/api/feedback/by-staff/${id}`),
+                    axios.get(`${import.meta.env.VITE_API_URL}/api/staff/${id}/stats`)
                 ]);
                 setStaff(staffRes.data);
                 setReviews(reviewsRes.data);
@@ -53,7 +53,7 @@ const StaffProfile = () => {
             <div style={{ position: 'relative', height: '80vh', display: 'flex', alignItems: 'flex-end', paddingBottom: '80px', overflow: 'hidden' }}>
                 <div style={{ 
                     position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
-                    backgroundImage: `linear-gradient(to top, #0a0a0a 10%, rgba(10,10,10,0.4) 60%, rgba(10,10,10,0.2)), url(${staff.image ? `http://localhost:5000/uploads/${staff.image}` : 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1974'})`,
+                    backgroundImage: `linear-gradient(to top, #0a0a0a 10%, rgba(10,10,10,0.4) 60%, rgba(10,10,10,0.2)), url(${staff.image ? `${import.meta.env.VITE_API_URL}/uploads/${staff.image}` : 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1974'})`,
                     backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0
                 }}></div>
 

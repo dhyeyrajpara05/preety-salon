@@ -8,7 +8,7 @@ const Membership = () => {
     const [plans, setPlans] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/membership-plans')
+        axios.get(import.meta.env.VITE_API_URL + '/api/membership-plans')
             .then(res => setPlans(res.data.filter(p => p.isActive)))
             .catch(err => console.error(err));
     }, []);
@@ -24,7 +24,7 @@ const Membership = () => {
 
         try {
             // 1. Create Order
-            const res = await fetch('http://localhost:5000/api/razorpay/create-order', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/razorpay/create-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount: plan.price, currency: 'INR' })
@@ -43,7 +43,7 @@ const Membership = () => {
                 order_id: rzpOrder.id,
                 handler: async function (response) {
                     try {
-                        const verifyRes = await fetch('http://localhost:5000/api/razorpay/verify-payment', {
+                        const verifyRes = await fetch(import.meta.env.VITE_API_URL + '/api/razorpay/verify-payment', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

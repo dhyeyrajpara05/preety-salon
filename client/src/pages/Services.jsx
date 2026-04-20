@@ -39,7 +39,7 @@ const Services = () => {
         setActiveIdx(0);
         setLoading(true);
         setError(null);
-        fetch('http://localhost:5000/api/services')
+        fetch(import.meta.env.VITE_API_URL + '/api/services')
             .then(r => {
                 if (!r.ok) throw new Error('Failed to fetch services');
                 return r.json();

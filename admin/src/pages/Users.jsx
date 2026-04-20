@@ -11,7 +11,7 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5001/api/users`);
+      const res = await axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/users`);
       setUsers(res.data);
       if (res.data.length > 0 && !selectedUser) {
         setSelectedUser(res.data[0]);
@@ -31,7 +31,7 @@ const Users = () => {
     try {
       const isBlocking = currentStatus !== 'blocked';
       const endpoint = isBlocking ? 'block' : 'unblock';
-      await axios.put(`http://localhost:5001/api/users/${id}/${endpoint}`);
+      await axios.put(`${import.meta.env.VITE_ADMIN_API_URL}/api/users/${id}/${endpoint}`);
       
       // Update local state to reflect change instantly
       setUsers(users.map(u => u._id === id ? { ...u, status: isBlocking ? 'blocked' : 'active'} : u));

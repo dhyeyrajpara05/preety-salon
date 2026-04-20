@@ -21,7 +21,7 @@ const Reports = () => {
   const fetchReports = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5001/api/reports`);
+      const res = await axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/reports`);
       setData(res.data);
     } catch (err) {
       console.error("Error fetching reports:", err);

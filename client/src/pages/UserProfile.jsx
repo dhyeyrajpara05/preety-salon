@@ -65,7 +65,7 @@ const UserProfile = () => {
 
     const fetchAllStaff = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/staff');
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/staff');
             if (res.ok) {
                 const data = await res.json();
                 setAllStaff(data.filter(s => s.status !== 'Inactive'));
@@ -79,7 +79,7 @@ const UserProfile = () => {
 
     const fetchOrders = async (userid) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/orders/${userid}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/${userid}`);
             if (res.ok) {
                 const data = await res.json();
                 setOrders(data);
@@ -93,7 +93,7 @@ const UserProfile = () => {
 
     const fetchInvoices = async (phone) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/invoices/by-phone/${phone}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/invoices/by-phone/${phone}`);
             if (res.ok) {
                 const data = await res.json();
                 setInvoices(data);
@@ -107,7 +107,7 @@ const UserProfile = () => {
 
     const fetchMembershipStatus = async (phone) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/user/membership/${phone}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/membership/${phone}`);
             if (res.ok) {
                 const data = await res.json();
                 setUser(prev => ({ ...prev, ...data }));
@@ -120,8 +120,8 @@ const UserProfile = () => {
     const fetchFeedbackData = async (phone, userId) => {
         try {
             const [servicesRes, feedbackRes] = await Promise.all([
-                fetch(`http://localhost:5000/api/feedback/my-services/${phone}`),
-                fetch(`http://localhost:5000/api/feedback/by-user/${userId}`)
+                fetch(`${import.meta.env.VITE_API_URL}/api/feedback/my-services/${phone}`),
+                fetch(`${import.meta.env.VITE_API_URL}/api/feedback/by-user/${userId}`)
             ]);
             const services = servicesRes.ok ? await servicesRes.json() : [];
             const feedbacks = feedbackRes.ok ? await feedbackRes.json() : [];
@@ -139,7 +139,7 @@ const UserProfile = () => {
         if (!generalFeedback.rating) return alert('Please select a star rating.');
         setGeneralFeedbackSaving(true);
         try {
-            const res = await fetch('http://localhost:5000/api/feedback', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/feedback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -167,7 +167,7 @@ const UserProfile = () => {
         
         setStaffReviews(p => ({ ...p, [staffId]: { ...p[staffId], saving: true } }));
         try {
-            const res = await fetch('http://localhost:5000/api/feedback', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/feedback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -198,7 +198,7 @@ const UserProfile = () => {
         if (!form?.rating) return alert('Please select a star rating.');
         setFeedbackSaving(p => ({ ...p, [serviceName]: true }));
         try {
-            const res = await fetch('http://localhost:5000/api/feedback', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/feedback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -226,7 +226,7 @@ const UserProfile = () => {
 
     const fetchAppointments = async (userid) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/appointments/${userid}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/appointments/${userid}`);
             if (res.ok) {
                 const data = await res.json();
                 setAppointments(data);
@@ -242,7 +242,7 @@ const UserProfile = () => {
         if (!newPostponeDate || !newPostponeTime) return alert('Please select a date and time.');
         setIsPostponing(true);
         try {
-            const res = await fetch(`http://localhost:5000/api/appointments/${postponeModalId}/postpone-request`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/appointments/${postponeModalId}/postpone-request`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ newDate: newPostponeDate, newTime: newPostponeTime })
@@ -299,7 +299,7 @@ const UserProfile = () => {
         data.append(type, file);
         data.append('email', user.email);
         try {
-            const res = await fetch('http://localhost:5000/api/update-photo', { method: 'POST', body: data });
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/update-photo', { method: 'POST', body: data });
             const result = await res.json();
             if (res.ok) {
                 const updatedUser = { ...user, [type]: result[type] };
@@ -315,7 +315,7 @@ const UserProfile = () => {
 
     const handleEditSave = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/update-profile', {
+            const res = await fetch(import.meta.env.VITE_API_URL + '/api/update-profile', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: user.email, uname: editData.uname, contact: editData.contact, gender: editData.gender })
@@ -336,8 +336,8 @@ const UserProfile = () => {
 
     if (!user) return null;
 
-    const profilePicUrl = user.profilepic ? `http://localhost:5000${user.profilepic}` : null;
-    const coverPhotoUrl = user.coverphoto ? `http://localhost:5000${user.coverphoto}` : null;
+    const profilePicUrl = user.profilepic ? `${import.meta.env.VITE_API_URL}${user.profilepic}` : null;
+    const coverPhotoUrl = user.coverphoto ? `${import.meta.env.VITE_API_URL}${user.coverphoto}` : null;
 
     const getInitials = (name) => {
         if (!name) return 'U';

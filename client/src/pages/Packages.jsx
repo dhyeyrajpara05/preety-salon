@@ -10,7 +10,7 @@ const Packages = () => {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/packages');
+                const response = await fetch(import.meta.env.VITE_API_URL + '/api/packages');
                 const data = await response.json();
                 setPackages(data);
                 setLoading(false);
@@ -124,7 +124,7 @@ const Packages = () => {
                             }}>
                                 <div style={{ height: '400px', overflow: 'hidden', position: 'relative' }}>
                                     <img 
-                                        src={pkg.pkimg ? `http://localhost:5000${pkg.pkimg}` : 'https://images.unsplash.com/photo-1540555700478-4be289fbecee?auto=format&fit=crop&q=80&w=1000'} 
+                                        src={pkg.pkimg ? `${import.meta.env.VITE_API_URL}${pkg.pkimg}` : 'https://images.unsplash.com/photo-1540555700478-4be289fbecee?auto=format&fit=crop&q=80&w=1000'} 
                                         alt={pkg.pkname} 
                                         style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)' }} 
                                         className="card-img"

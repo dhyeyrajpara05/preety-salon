@@ -11,7 +11,7 @@ const Appointments = () => {
 
     const fetchAppointments = async () => {
         try {
-            const res = await fetch('http://localhost:5001/api/all-appointments');
+            const res = await fetch(import.meta.env.VITE_ADMIN_API_URL + '/api/all-appointments');
             if (res.ok) {
                 const data = await res.json();
                 setAppointments(data);
@@ -29,7 +29,7 @@ const Appointments = () => {
         let nextStatus = statuses[(currentIndex + 1) % statuses.length];
 
         try {
-            const res = await fetch(`http://localhost:5001/api/appointments/${appid}/status`, {
+            const res = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/appointments/${appid}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: nextStatus })
@@ -47,7 +47,7 @@ const Appointments = () => {
 
     const handlePostponeAction = async (appid, action) => {
         try {
-            const res = await fetch(`http://localhost:5001/api/appointments/${appid}/${action}-postpone`, {
+            const res = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/appointments/${appid}/${action}-postpone`, {
                 method: 'POST'
             });
             if (res.ok) {
@@ -64,7 +64,7 @@ const Appointments = () => {
     const handleDirectReschedule = async () => {
         if (!rescheduleData.date || !rescheduleData.time) return alert('Please select date and time');
         try {
-            const res = await fetch(`http://localhost:5001/api/appointments/${rescheduleData.appid}/direct-postpone`, {
+            const res = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/appointments/${rescheduleData.appid}/direct-postpone`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ date: rescheduleData.date, time: rescheduleData.time })

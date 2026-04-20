@@ -23,7 +23,7 @@ const Customers = () => {
   const fetchCustomers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5001/api/customers`);
+      const res = await axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/customers`);
       setCustomers(res.data);
       if (res.data.length > 0 && !selectedCustomer) {
         setSelectedCustomer(res.data[0]);
@@ -38,7 +38,7 @@ const Customers = () => {
   const fetchCustomerInvoices = async (id) => {
     try {
       setInvoicesLoading(true);
-      const res = await axios.get(`http://localhost:5001/api/customers/${id}/invoices`);
+      const res = await axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/customers/${id}/invoices`);
       setCustomerInvoices(res.data);
     } catch (err) {
       console.error("Error fetching invoices:", err);
@@ -89,9 +89,9 @@ const Customers = () => {
     e.preventDefault();
     try {
       if (editingCustomer) {
-        await axios.put(`http://localhost:5001/api/customers/${editingCustomer._id}`, formData);
+        await axios.put(`${import.meta.env.VITE_ADMIN_API_URL}/api/customers/${editingCustomer._id}`, formData);
       } else {
-        await axios.post(`http://localhost:5001/api/customers`, formData);
+        await axios.post(`${import.meta.env.VITE_ADMIN_API_URL}/api/customers`, formData);
       }
       setIsModalOpen(false);
       fetchCustomers();

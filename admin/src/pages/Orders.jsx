@@ -12,7 +12,7 @@ const Orders = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch('http://localhost:5001/api/admin/orders')
+            const response = await fetch(import.meta.env.VITE_ADMIN_API_URL + '/api/admin/orders')
             const data = await response.json()
             setOrders(data)
         } catch (error) {
@@ -25,7 +25,7 @@ const Orders = () => {
 
     const handleStatusUpdate = async (orderid, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/admin/orders/${orderid}/status`, {
+            const response = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/admin/orders/${orderid}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus })

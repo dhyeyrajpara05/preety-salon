@@ -10,7 +10,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchUnread = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/notifications/admin')
+        const response = await axios.get(import.meta.env.VITE_ADMIN_API_URL + '/api/notifications/admin')
         setUnreadCount(response.data.filter(n => !n.isRead).length)
       } catch (err) {
         console.error('Error fetching unread notifications:', err)

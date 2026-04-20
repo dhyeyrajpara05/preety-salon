@@ -22,7 +22,7 @@ const Navbar = () => {
         const fetchUnread = async () => {
             if (userObj && userObj.userid) {
                 try {
-                    const res = await fetch(`http://localhost:5000/api/notifications/${userObj.userid}`);
+                    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/notifications/${userObj.userid}`);
                     if (res.ok) {
                         const data = await res.json();
                         setUnreadCount(data.filter(n => !n.isRead).length);
@@ -35,7 +35,7 @@ const Navbar = () => {
 
         const fetchCategories = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/categories');
+                const res = await fetch(import.meta.env.VITE_API_URL + '/api/categories');
                 if (res.ok) {
                     const data = await res.json();
                     setCategories(data);

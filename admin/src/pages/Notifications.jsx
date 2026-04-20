@@ -8,7 +8,7 @@ const Notifications = () => {
 
     const fetchNotifications = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/api/notifications/admin');
+            const response = await axios.get(import.meta.env.VITE_ADMIN_API_URL + '/api/notifications/admin');
             setNotifications(response.data);
         } catch (error) {
             console.error('Error fetching notifications:', error);
@@ -23,7 +23,7 @@ const Notifications = () => {
 
     const markAsRead = async (id) => {
         try {
-            await axios.put(`http://localhost:5001/api/notifications/${id}/read`);
+            await axios.put(`${import.meta.env.VITE_ADMIN_API_URL}/api/notifications/${id}/read`);
             setNotifications(notifications.map(n => n._id === id ? { ...n, isRead: true } : n));
         } catch (error) {
             console.error('Error marking notification as read:', error);
@@ -33,7 +33,7 @@ const Notifications = () => {
     const markAllAsRead = async () => {
         if (window.confirm('Mark all notifications as read?')) {
             try {
-                await axios.put('http://localhost:5001/api/notifications/read-all/admin');
+                await axios.put(import.meta.env.VITE_ADMIN_API_URL + '/api/notifications/read-all/admin');
                 setNotifications(notifications.map(n => ({ ...n, isRead: true })));
             } catch (error) {
                 console.error('Error marking all as read:', error);

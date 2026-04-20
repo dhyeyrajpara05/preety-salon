@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/admin/dashboard-stats');
+        const response = await axios.get(import.meta.env.VITE_ADMIN_API_URL + '/api/admin/dashboard-stats');
         setStats(response.data);
       } catch (err) {
         console.error('Error fetching dashboard stats:', err);

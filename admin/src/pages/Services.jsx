@@ -19,7 +19,7 @@ const AdminServices = () => {
 
   const fetchServices = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/services')
+      const response = await fetch(import.meta.env.VITE_ADMIN_API_URL + '/api/services')
       const data = await response.json()
       setServices(data)
     } catch (error) {
@@ -76,8 +76,8 @@ const AdminServices = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const url = editingService 
-      ? `http://localhost:5001/api/services/${editingService.sid}`
-      : 'http://localhost:5001/api/services'
+      ? `${import.meta.env.VITE_ADMIN_API_URL}/api/services/${editingService.sid}`
+      : import.meta.env.VITE_ADMIN_API_URL + '/api/services'
     const method = editingService ? 'PUT' : 'POST'
 
     try {
@@ -121,7 +121,7 @@ const AdminServices = () => {
   const handleDelete = async (sid) => {
     if (window.confirm('Are you sure you want to delete this service category?')) {
       try {
-        const response = await fetch(`http://localhost:5001/api/services/${sid}`, {
+        const response = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/services/${sid}`, {
           method: 'DELETE'
         })
         if (response.ok) {

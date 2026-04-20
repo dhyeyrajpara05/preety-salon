@@ -23,8 +23,8 @@ const Staff = () => {
     try {
       setLoading(true);
       const [staffRes, servicesRes] = await Promise.all([
-        axios.get(`http://localhost:5001/api/staff`),
-        axios.get(`http://localhost:5001/api/services`)
+        axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/staff`),
+        axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/services`)
       ]);
       
       setStaffList(staffRes.data);
@@ -110,9 +110,9 @@ const Staff = () => {
 
       const config = { headers: { 'Content-Type': 'multipart/form-data' } };
       if (editingMember) {
-        await axios.put(`http://localhost:5001/api/staff/${editingMember._id}`, data, config);
+        await axios.put(`${import.meta.env.VITE_ADMIN_API_URL}/api/staff/${editingMember._id}`, data, config);
       } else {
-        await axios.post(`http://localhost:5001/api/staff`, data, config);
+        await axios.post(`${import.meta.env.VITE_ADMIN_API_URL}/api/staff`, data, config);
       }
       setIsModalOpen(false);
       fetchData();
@@ -124,7 +124,7 @@ const Staff = () => {
   const deleteStaff = async (id) => {
      if (window.confirm("Are you sure you want to delete this staff member?")) {
        try {
-         await axios.delete(`http://localhost:5001/api/staff/${id}`);
+         await axios.delete(`${import.meta.env.VITE_ADMIN_API_URL}/api/staff/${id}`);
          if (selectedMember?._id === id) setSelectedMember(null);
          fetchData();
        } catch (err) {
@@ -306,7 +306,7 @@ const Staff = () => {
                   display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
                 }} onClick={() => document.getElementById('staff-image-input').click()}>
                   {imagePreview ? (
-                    <img src={imagePreview.startsWith('blob:') || imagePreview.startsWith('data:') ? imagePreview : `http://localhost:5001/uploads/${imagePreview}`}
+                    <img src={imagePreview.startsWith('blob:') || imagePreview.startsWith('data:') ? imagePreview : `${import.meta.env.VITE_ADMIN_API_URL}/uploads/${imagePreview}`}
                       alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <div style={{ textAlign: 'center' }}>

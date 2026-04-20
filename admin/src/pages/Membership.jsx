@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const BASE = "http://localhost:5001";
+const BASE = import.meta.env.VITE_ADMIN_API_URL ;
 
 const Membership = () => {
   const [activeTab, setActiveTab] = useState("plans");

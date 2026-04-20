@@ -22,7 +22,7 @@ function SimplePay() {
     try {
       // 1. Create Order on Backend
       const response = await axios.post(
-        "http://localhost:5000/api/razorpay/create-order",
+        import.meta.env.VITE_API_URL + "/api/razorpay/create-order",
         priceData,
       );
 
@@ -40,7 +40,7 @@ function SimplePay() {
           handler: async function (response) {
             // Verify payment
             try {
-                const verifyRes = await axios.post('http://localhost:5000/api/razorpay/verify-payment', {
+                const verifyRes = await axios.post(import.meta.env.VITE_API_URL + '/api/razorpay/verify-payment', {
                     ...response,
                     amount: priceData.price
                 });

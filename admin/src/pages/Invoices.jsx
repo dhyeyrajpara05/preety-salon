@@ -74,11 +74,11 @@ const Invoices = () => {
     try {
       setLoading(true);
       const [invRes, custRes, servRes, prodRes, staffRes] = await Promise.all([
-        axios.get(`http://localhost:5001/api/invoices`),
-        axios.get(`http://localhost:5001/api/customers`),
-        axios.get(`http://localhost:5001/api/services`),
-        axios.get(`http://localhost:5001/api/products`),
-        axios.get(`http://localhost:5001/api/staff`)
+        axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/invoices`),
+        axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/customers`),
+        axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/services`),
+        axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/products`),
+        axios.get(`${import.meta.env.VITE_ADMIN_API_URL}/api/staff`)
       ]);
       setInvoices(invRes.data);
       setCustomers(custRes.data);
@@ -257,7 +257,7 @@ const Invoices = () => {
 
       // Create new customer first if needed
       if (formData.newCustomerMode) {
-        const custRes = await axios.post(`http://localhost:5001/api/customers`, {
+        const custRes = await axios.post(`${import.meta.env.VITE_ADMIN_API_URL}/api/customers`, {
           name: formData.customerName,
           phone: formData.customerPhone
         });
@@ -284,9 +284,9 @@ const Invoices = () => {
       };
 
       if (editingId) {
-        await axios.put(`http://localhost:5001/api/invoices/${editingId}`, invoicePayload);
+        await axios.put(`${import.meta.env.VITE_ADMIN_API_URL}/api/invoices/${editingId}`, invoicePayload);
       } else {
-        await axios.post(`http://localhost:5001/api/invoices`, invoicePayload);
+        await axios.post(`${import.meta.env.VITE_ADMIN_API_URL}/api/invoices`, invoicePayload);
       }
       
       closeBuilder();
@@ -300,7 +300,7 @@ const Invoices = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Delete this invoice forever?")) {
       try {
-        await axios.delete(`http://localhost:5001/api/invoices/${id}`);
+        await axios.delete(`${import.meta.env.VITE_ADMIN_API_URL}/api/invoices/${id}`);
         fetchData();
       } catch (err) {
         console.error("Delete invoice error:", err);

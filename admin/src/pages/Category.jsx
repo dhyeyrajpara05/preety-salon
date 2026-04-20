@@ -20,7 +20,7 @@ const Category = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/categories')
+      const response = await fetch(import.meta.env.VITE_ADMIN_API_URL + '/api/categories')
       const data = await response.json()
       setCategories(data)
     } catch (error) {
@@ -32,7 +32,7 @@ const Category = () => {
   const handleDelete = async (catid) => {
     if (window.confirm('Are you sure you want to delete this category?')) {
       try {
-        const response = await fetch(`http://localhost:5001/api/categories/${catid}`, {
+        const response = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/categories/${catid}`, {
           method: 'DELETE',
         })
         if (response.ok) {
@@ -75,8 +75,8 @@ const Category = () => {
     
     try {
       const url = editingCategory 
-        ? `http://localhost:5001/api/categories/${editingCategory.catid}` 
-        : 'http://localhost:5001/api/categories'
+        ? `${import.meta.env.VITE_ADMIN_API_URL}/api/categories/${editingCategory.catid}` 
+        : import.meta.env.VITE_ADMIN_API_URL + '/api/categories'
       const method = editingCategory ? 'PUT' : 'POST'
 
       const response = await fetch(url, {

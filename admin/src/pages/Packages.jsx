@@ -20,7 +20,7 @@ const AdminPackages = () => {
 
   const fetchPackages = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/admin/packages')
+      const response = await fetch(import.meta.env.VITE_ADMIN_API_URL + '/api/admin/packages')
       const data = await response.json()
       setPackages(data)
     } catch (error) {
@@ -61,8 +61,8 @@ const AdminPackages = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const url = editingPackage 
-      ? `http://localhost:5001/api/packages/${editingPackage.pkid}`
-      : 'http://localhost:5001/api/packages'
+      ? `${import.meta.env.VITE_ADMIN_API_URL}/api/packages/${editingPackage.pkid}`
+      : import.meta.env.VITE_ADMIN_API_URL + '/api/packages'
     const method = editingPackage ? 'PUT' : 'POST'
 
     const data = new FormData()
@@ -108,7 +108,7 @@ const AdminPackages = () => {
   const handleDelete = async (pkid) => {
     if (window.confirm('Are you sure you want to delete this package?')) {
       try {
-        const response = await fetch(`http://localhost:5001/api/packages/${pkid}`, {
+        const response = await fetch(`${import.meta.env.VITE_ADMIN_API_URL}/api/packages/${pkid}`, {
           method: 'DELETE'
         })
         if (response.ok) {
@@ -190,7 +190,7 @@ const AdminPackages = () => {
                             }}>
                               <div style={{height: '180px', overflow: 'hidden', position: 'relative'}}>
                                 <img 
-                                  src={pkg.pkimg ? `http://localhost:5001${pkg.pkimg}` : 'https://placehold.co/600x400?text=No+Image'} 
+                                  src={pkg.pkimg ? `${import.meta.env.VITE_ADMIN_API_URL}${pkg.pkimg}` : 'https://placehold.co/600x400?text=No+Image'} 
                                   alt={pkg.pkname} 
                                   style={{width: '100%', height: '100%', objectFit: 'cover'}} 
                                 />
